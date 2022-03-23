@@ -13,5 +13,17 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :users, [UserType], null: false, description: 'List all users'
+    
+    def users
+      User.preload(:posts, :comments)
+    end
+
+    field :posts, [PostType], null: false, description: "List all posts"
+
+    def posts
+      Post.preload(:comments, :user)
+    end
   end
 end
